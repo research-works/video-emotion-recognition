@@ -1,0 +1,11 @@
+
+dataset/**
+temp/**
+test/**
+utils/test/**
+./data/RAVDESS
+./data/**
+utils/__pycache__/audio_utils.cpython-37.pyc
+utils/__pycache__/data_util.cpython-37.pyc
+utils/__pycache__/__init__.cpython-37.pyc
+utils/__pycache__/video_utils.cpython-37.pyc
