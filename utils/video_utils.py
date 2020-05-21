@@ -17,33 +17,6 @@ from keras.preprocessing import image
 import numpy as np
 import matplotlib.pyplot as plt
 
-def extract_frames(cam, output_dir, frame_rate):
-    currentframe = 0
-    count = 0
-
-    while(True): 
-        # reading from frame 
-        ret,frame = cam.read()
-        if ret:
-            # if video is still left continue creating images
-            if (currentframe % frame_rate) == 0:
-                name = output_dir+ '/frame' + str(currentframe) + '.jpg'
-                #print ('Creating...' + name) 
-                
-                # writing the extracted images 
-                print(frame.shape)
-                cv2.imwrite(name, frame)
-                count = count +1 
-
-                # increasing counter so that it will 
-                # show how many frames are created 
-            currentframe += 1
-        else:
-            print("oof") 
-            break
-    return frame_rate, count
-
-
 def sub(frames_dir_path, intermediate_dir_path, output_dir_path, frame_rate):
 
     try: 
