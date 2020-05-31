@@ -5,9 +5,9 @@ from PIL import Image
 import utils.audio_utils as audio_utils
 import utils.video_utils as video_utils
 import tensorflow.keras as keras
-from utils.test import config
+import utils.local_config as LocalConfig
 
-BASE_DIR = config.BASE_DIR
+BASE_DIR = LocalConfig.BASE_DIR
 PREPROCESSED_VIDEO_DIR = 'Video_preprocessing_output'
 PREPROCESSED_AUDIO_DIR = 'Audio_preprocessing_output'
 EMOTION_CLASSES = ['neutral', 'calm', 'happy', 'sad','angry','fearful','disgust','surprised']

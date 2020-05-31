@@ -11,3 +11,4 @@ utils/__pycache__/__init__.cpython-37.pyc
 utils/__pycache__/video_utils.cpython-37.pyc
 data/**
 utils/__pycache__/**
+utils/local_config.py
