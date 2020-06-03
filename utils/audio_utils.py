@@ -21,8 +21,8 @@ def preprocess_audio(input_wav_path, output_dir_path):
     F_MAX = 8000
     N_MELS = 64
 
-    RESIZED_WIDTH = 299
-    RESIZED_HEIGHT = 299
+    # RESIZED_WIDTH = 299
+    # RESIZED_HEIGHT = 299
 
     data, sr = librosa.load(input_wav_path, sr = SAMPLE_RATE, offset = OFFSET, duration = DURATION)
     n_fft = int(sr * (FFT_WINDOW_SIZE/1000))
@@ -34,9 +34,9 @@ def preprocess_audio(input_wav_path, output_dir_path):
     S_DB_delta = librosa.feature.delta(S_DB_static)
     S_DB_delta2 = librosa.feature.delta(S_DB_delta)
 
-    S_DB_static = resize(S_DB_static, RESIZED_WIDTH, RESIZED_HEIGHT) 
-    S_DB_delta = resize(S_DB_delta, RESIZED_WIDTH, RESIZED_HEIGHT)
-    S_DB_delta2 = resize(S_DB_delta2, RESIZED_WIDTH, RESIZED_HEIGHT)
+    # S_DB_static = resize(S_DB_static, RESIZED_WIDTH, RESIZED_HEIGHT) 
+    # S_DB_delta = resize(S_DB_delta, RESIZED_WIDTH, RESIZED_HEIGHT)
+    # S_DB_delta2 = resize(S_DB_delta2, RESIZED_WIDTH, RESIZED_HEIGHT)
 
     S_DB_static = preprocessing.normalize(S_DB_static)
     S_DB_delta = preprocessing.normalize(S_DB_delta)
