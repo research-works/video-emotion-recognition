@@ -5,9 +5,9 @@ from PIL import Image
 import utils.audio_utils as audio_utils
 import utils.video_utils as video_utils
 import tensorflow.keras as keras
-from utils.test import config
+import utils.local_config as LocalConfig
 
-BASE_DIR = config.BASE_DIR
+BASE_DIR = LocalConfig.BASE_DIR
 PREPROCESSED_VIDEO_DIR = 'Video_preprocessing_output'
 PREPROCESSED_AUDIO_DIR = 'Audio_preprocessing_output'
 EMOTION_CLASSES = ['neutral', 'calm', 'happy', 'sad','angry','fearful','disgust','surprised']
@@ -16,8 +16,8 @@ SAMPLE_RATE = 44100
 DURATION = 2.5
 OFFSET = 0.8
 
-OUTPUT_IMAGE_WIDTH = 299
-OUTPUT_IMAGE_HEIGHT = 299
+# OUTPUT_IMAGE_WIDTH = 299
+# OUTPUT_IMAGE_HEIGHT = 299
 # 01 = neutral, 02 = calm, 03 = happy, 04 = sad, 05 = angry, 06 = fearful, 07 = disgust, 08 = surprised
 # file1 - calm - [0,1,0,0,0,0,0,0]
 # fil2 - angry - [0,0,0,0,1,0,0,0]
@@ -119,10 +119,12 @@ def load_audio_filenames():
 
 class FaceDataGenerator(keras.utils.Sequence):
 
-    def __init__(self, file_names, labels, batch_size):
+    def __init__(self, file_names, labels, batch_size, image_width, image_height):
         self.file_names = file_names
         self.batch_size = batch_size
         self.labels = labels #emotions
+        self.image_width = image_width
+        self.image_height = image_height
 
     def __len__(self):
         return np.ceil(len(self.file_names) /float(self.batch_size)).astype(np.int)
@@ -135,7 +137,7 @@ class FaceDataGenerator(keras.utils.Sequence):
         for file_name in self.file_names[start:end]:
             image = Image.open(file_name)
             image.load()
-            image = image.resize((OUTPUT_IMAGE_WIDTH, OUTPUT_IMAGE_HEIGHT))
+            image = image.resize((self.image_width, self.image_height))
             data_x.append(np.array(image))
         data_x = np.array(data_x)
         data_y = self.labels[start:end]
@@ -144,10 +146,12 @@ class FaceDataGenerator(keras.utils.Sequence):
 
 class AudioDataGenerator(keras.utils.Sequence):
 
-    def __init__(self, file_names, labels, batch_size):
+    def __init__(self, file_names, labels, batch_size, image_width, image_height):
         self.file_names = file_names
         self.batch_size = batch_size
         self.labels = labels #emotions
+        self.image_width = image_width
+        self.image_height = image_height
 
     def __len__(self):
         return np.ceil(len(self.file_names) /float(self.batch_size)).astype(np.int)
@@ -158,16 +162,18 @@ class AudioDataGenerator(keras.utils.Sequence):
         start = index * self.batch_size
         end = (index + 1) * self.batch_size
         for file_name in self.file_names[start:end]:
-            data_x.append(np.load(file_name, allow_pickle = True))
+            spect = np.load(file_name, allow_pickle = True)
+            spect = audio_utils.resize(spect, self.image_width, self.image_height)
+            data_x.append(spect)
         data_x = np.array(data_x)
         data_y = self.labels[start:end]
         return data_x, data_y
 
 
 class MultimodalDataGenerator(keras.utils.Sequence):
-    def __init__(self, file_names_face, file_names_audio, labels, batch_size):
-        self.face_gen = FaceDataGenerator(file_names_face, labels, batch_size)
-        self.audio_gen = AudioDataGenerator(file_names_audio, labels, batch_size)
+    def __init__(self, file_names_face, file_names_audio, labels, batch_size, image_width, image_height):
+        self.face_gen = FaceDataGenerator(file_names_face, labels, batch_size, image_width, image_height)
+        self.audio_gen = AudioDataGenerator(file_names_audio, labels, batch_size, image_width, image_height)
 
     def __len__(self):
         return self.face_gen.__len__()
