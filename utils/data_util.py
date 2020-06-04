@@ -163,7 +163,19 @@ class AudioDataGenerator(keras.utils.Sequence):
         end = (index + 1) * self.batch_size
         for file_name in self.file_names[start:end]:
             spect = np.load(file_name, allow_pickle = True)
-            spect = audio_utils.resize(spect, self.image_width, self.image_height)
+            spect_static = spect[:,:,0]
+            spect_delta = spect[:,:,1]
+            spect_delta2 = spect[:,:,2]
+
+            spect_static = audio_utils.resize(spect_static, self.image_width, self.image_height)
+            spect_delta = audio_utils.resize(spect_delta, self.image_width, self.image_height)
+            spect_delta2 = audio_utils.resize(spect_delta2, self.image_width, self.image_height)
+
+            spect = np.zeros((self.image_width, self.image_height, 3))
+            spect[:,:,0] = spect_static
+            spect[:,:,1] = spect_delta
+            spect[:,:,2] = spect_delta2
+
             data_x.append(spect)
         data_x = np.array(data_x)
         data_y = self.labels[start:end]
