@@ -7,7 +7,7 @@ import utils.video_utils as video_utils
 import tensorflow.keras as keras
 import utils.local_config as LocalConfig
 
-BASE_DIR = LocalConfig.BASE_DIR
+BASE_DIR = LocalConfig.DATA_DIR
 PREPROCESSED_VIDEO_DIR = 'Video_preprocessing_output'
 PREPROCESSED_AUDIO_DIR = 'Audio_preprocessing_output'
 EMOTION_CLASSES = ['neutral', 'calm', 'happy', 'sad','angry','fearful','disgust','surprised']
