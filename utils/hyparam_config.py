@@ -18,3 +18,13 @@ HyperparamConfig3 = {
     'layer1_dropout': tf.keras.layers.Dropout(0),
     'optimizer': 'rmsprop'
 }
+
+HyperparamConfig4 = {
+    'iteration': 4,
+    'layer1_kernel_intializer': 'glorot_uniform',
+    'layer1_kernel_regularizer': None,
+    'layer1_activity_regulazier':  None,
+    'layer1_activation': None,
+    'layer1_dropout': tf.keras.layers.Dropout(0),
+    'optimizer': 'rmsprop'
+}
