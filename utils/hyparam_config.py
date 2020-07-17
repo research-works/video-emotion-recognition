@@ -10,7 +10,8 @@ HyperparamConfigA2 = {
     'layer1_dropout': tf.keras.layers.Dropout(0.2),
     'optimizer_ft': 'rmsprop',
     'optimizer_fusion': tf.keras.optimizers.RMSprop(),
-    'batch_size': 8
+    'batch_size': 8, 
+    'epochs': 200
 }
 
 HyperparamConfigA3 = {
@@ -22,7 +23,8 @@ HyperparamConfigA3 = {
     'layer1_dropout': tf.keras.layers.Dropout(0),
     'optimizer_ft': 'rmsprop',
     'optimizer_fusion': tf.keras.optimizers.RMSprop(),
-    'batch_size': 8
+    'batch_size': 8,
+    'epochs': 200
 }
 
 HyperparamConfigA4 = {
@@ -34,5 +36,19 @@ HyperparamConfigA4 = {
     'layer1_dropout': tf.keras.layers.Dropout(0),
     'optimizer_ft': 'rmsprop',
     'optimizer_fusion': tf.keras.optimizers.RMSprop(learning_rate = 0.0001),
-    'batch_size': 8
+    'batch_size': 8,
+    'epochs': 200
+}
+
+HyperparamConfigTest = {
+    'iteration': 'test',
+    'layer1_kernel_intializer': 'glorot_uniform',
+    'layer1_kernel_regularizer': None,
+    'layer1_activity_regulazier':  None,
+    'layer1_activation': None,
+    'layer1_dropout': tf.keras.layers.Dropout(0),
+    'optimizer_ft': 'rmsprop',
+    'optimizer_fusion': tf.keras.optimizers.RMSprop(learning_rate = 0.0001),
+    'batch_size': 8,
+    'epochs': 1
 }
