@@ -1,5 +1,7 @@
 import tensorflow as tf
-HyperparamConfig2 = {
+# Naming convection 
+# A - Abhishek
+HyperparamConfigA2 = {
     'iteration': 2,
     'layer1_kernel_intializer': 'glorot_uniform',
     'layer1_kernel_regularizer': tf.keras.regularizers.l1(0.01),
@@ -11,7 +13,7 @@ HyperparamConfig2 = {
     'batch_size': 8
 }
 
-HyperparamConfig3 = {
+HyperparamConfigA3 = {
     'iteration': 3,
     'layer1_kernel_intializer': 'glorot_uniform',
     'layer1_kernel_regularizer': None,
@@ -23,7 +25,7 @@ HyperparamConfig3 = {
     'batch_size': 8
 }
 
-HyperparamConfig4 = {
+HyperparamConfigA4 = {
     'iteration': 4,
     'layer1_kernel_intializer': 'glorot_uniform',
     'layer1_kernel_regularizer': None,
