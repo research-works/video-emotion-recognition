@@ -6,7 +6,9 @@ HyperparamConfig2 = {
     'layer1_activity_regulazier':  tf.keras.regularizers.l2(0.01),
     'layer1_activation': 'relu',
     'layer1_dropout': tf.keras.layers.Dropout(0.2),
-    'optimizer': 'rmsprop'
+    'optimizer_ft': 'rmsprop',
+    'optimizer_fusion': tf.keras.optimizers.RMSprop(),
+    'batch_size': 8
 }
 
 HyperparamConfig3 = {
@@ -16,7 +18,9 @@ HyperparamConfig3 = {
     'layer1_activity_regulazier':  None,
     'layer1_activation': 'relu',
     'layer1_dropout': tf.keras.layers.Dropout(0),
-    'optimizer': 'rmsprop'
+    'optimizer_ft': 'rmsprop',
+    'optimizer_fusion': tf.keras.optimizers.RMSprop(),
+    'batch_size': 8
 }
 
 HyperparamConfig4 = {
@@ -26,5 +30,7 @@ HyperparamConfig4 = {
     'layer1_activity_regulazier':  None,
     'layer1_activation': None,
     'layer1_dropout': tf.keras.layers.Dropout(0),
-    'optimizer': 'rmsprop'
+    'optimizer_ft': 'rmsprop',
+    'optimizer_fusion': tf.keras.optimizers.RMSprop(learning_rate = 0.0001),
+    'batch_size': 8
 }
