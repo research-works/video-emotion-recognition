@@ -4,9 +4,9 @@ import utils.local_config as local_config
 import utils.audio_utils as audio_utils
 import utils.video_utils as video_utils
 
-DATA_DIR = local_config.DATA_DIR
-PREPROCESSED_VIDEO_DIR = local_config.PREPROCESSED_VIDEO_DIR
-PREPROCESSED_AUDIO_DIR = local_config.PREPROCESSED_AUDIO_DIR
+DATA_SAVE_DIR = local_config.DATA_SAVE_DIR
+PREPROCESSED_VIDEO_DIR_TEMP = local_config.PREPROCESSED_VIDEO_DIR_TEMP
+PREPROCESSED_AUDIO_DIR_TEMP = local_config.PREPROCESSED_AUDIO_DIR_TEMP
 
 def one_hot(i, n=8):
     arr = np.zeros(8)
@@ -22,8 +22,8 @@ def zero_pad(x, n):
 
 # Preprocssing functions for RAVDESS
 def preprocess_ravdess_audio_data():
-    DATASET_DIR = DATA_DIR + '/' + 'Audio_Speech_Actors_01-24'
-    OUTPUT_DIR = PREPROCESSED_AUDIO_DIR
+    DATASET_DIR = DATA_SAVE_DIR + '/' + 'Audio_Speech_Actors_01-24'
+    OUTPUT_DIR = PREPROCESSED_AUDIO_DIR_TEMP
     for actor_folder in os.listdir(DATASET_DIR):
         print(actor_folder)
         act_no = actor_folder.split('_')[1]
@@ -38,8 +38,8 @@ def preprocess_ravdess_audio_data():
                 audio_utils.preprocess_audio(input_video_path, output_dir_path)
 
 def preprocess_ravdess_facial_data():
-    DATASET_DIR = DATA_DIR + '/' + 'ravdess_speech_videos'
-    OUTPUT_DIR = PREPROCESSED_VIDEO_DIR
+    DATASET_DIR = DATA_SAVE_DIR + '/' + 'ravdess_speech_videos'
+    OUTPUT_DIR = PREPROCESSED_VIDEO_DIR_TEMP
     for actor_folder in os.listdir(DATASET_DIR):
         print(actor_folder)
         act_no = actor_folder.split('_')[1]
@@ -55,7 +55,7 @@ def preprocess_ravdess_facial_data():
 
 def load_ravdess_facial_filenames():
     X, Y = [], []
-    base_path = PREPROCESSED_VIDEO_DIR
+    base_path = PREPROCESSED_VIDEO_DIR_TEMP
     print(base_path)
     for actor_folder in os.listdir(base_path):
         actor_path = base_path + '/' + actor_folder + '/' + 'subtracted_frames'
@@ -78,7 +78,7 @@ def load_ravdess_facial_filenames():
 def load_ravdess_audio_filenames():
     print("hello") # Written by Diksha
     X, Y = [], []
-    base_path = PREPROCESSED_AUDIO_DIR
+    base_path = PREPROCESSED_AUDIO_DIR_TEMP
     print(base_path)
     for actor_folder in os.listdir(base_path):
         actor_path = base_path + '/' + actor_folder
@@ -114,8 +114,8 @@ def extract_em_id(filename):
     return SAVEE_EMOTION_CLASSES.index(emotion_class)
 
 def preprocess_savee_audio_data():
-    DATASET_DIR = DATA_DIR + '/' + 'AudioData'
-    OUTPUT_DIR = PREPROCESSED_AUDIO_DIR
+    DATASET_DIR = DATA_SAVE_DIR + '/' + 'AudioData'
+    OUTPUT_DIR = PREPROCESSED_AUDIO_DIR_TEMP
     for actor_folder in os.listdir(DATASET_DIR):
         print(actor_folder)
         act_no = actor_folder
@@ -130,8 +130,8 @@ def preprocess_savee_audio_data():
                 audio_utils.preprocess_audio(input_video_path, output_dir_path)
 
 def preprocess_savee_facial_data():
-    DATASET_DIR = DATA_DIR + '/' + 'AudioVisualClip'
-    OUTPUT_DIR = PREPROCESSED_VIDEO_DIR
+    DATASET_DIR = DATA_SAVE_DIR + '/' + 'AudioVisualClip'
+    OUTPUT_DIR = PREPROCESSED_VIDEO_DIR_TEMP
     for actor_folder in os.listdir(DATASET_DIR):
         print(actor_folder)
         act_no = actor_folder
@@ -147,7 +147,7 @@ def preprocess_savee_facial_data():
 
 def load_savee_facial_filenames():
     X, Y = [], []
-    base_path = PREPROCESSED_VIDEO_DIR
+    base_path = PREPROCESSED_VIDEO_DIR_TEMP
     print(base_path)
     for actor_folder in os.listdir(base_path):
         actor_path = base_path + '/' + actor_folder + '/' + 'subtracted_frames'
@@ -170,7 +170,7 @@ def load_savee_facial_filenames():
 def load_savee_audio_filenames():
     print("hello") # Written by Diksha
     X, Y = [], []
-    base_path = PREPROCESSED_AUDIO_DIR
+    base_path = PREPROCESSED_AUDIO_DIR_TEMP
     print(base_path)
     for actor_folder in os.listdir(base_path):
         actor_path = base_path + '/' + actor_folder
