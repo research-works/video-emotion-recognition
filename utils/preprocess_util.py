@@ -103,6 +103,16 @@ def load_ravdess_audio_filenames():
 
 
 # Preprocessing functions for SAVEE
+SAVEE_EMOTION_CLASSES = ['a', 'd', 'f', 'h', 'n', 'sa', 'su']
+def extract_em_id(filename):
+    filename = filename.split('.')[0]
+    emotion_class = ""
+    for ch in filename:
+        if(ch.isdigit()):
+            break
+        emotion_class += ch
+    return SAVEE_EMOTION_CLASSES.index(emotion_class)
+
 def preprocess_savee_audio_data():
     DATASET_DIR = DATA_DIR + '/' + 'AudioData'
     OUTPUT_DIR = PREPROCESSED_AUDIO_DIR
@@ -149,8 +159,8 @@ def load_savee_facial_filenames():
             image_path = actor_path + '/' + image_file
             X.append(image_path)
 
-            em_id = ord(image_file[0]) % 97
-            one_hot_em = one_hot(em_id - 1, n = 7)
+            em_id = extract_em_id(image_file)
+            one_hot_em = one_hot(em_id - 1, n = len(SAVEE_EMOTION_CLASSES))
             # print(one_hot_em)
             Y.append(one_hot_em)
     X = np.array(X)
@@ -175,8 +185,8 @@ def load_savee_audio_filenames():
             # X.append(S_input) # (216,1)
             X.append(audio_path)
 
-            em_id = ord(audio_file[0]) % 97
-            one_hot_em = one_hot(em_id - 1, n = 7)
+            em_id = extract_em_id(audio_file)
+            one_hot_em = one_hot(em_id - 1, n = len(SAVEE_EMOTION_CLASSES))
             # print(one_hot_em.shape)
             Y.append(one_hot_em)
     X = np.array(X)

@@ -12,7 +12,6 @@ from utils.preprocess_util import load_facial_filenames
 DATA_DIR = local_config.DATA_DIR
 PREPROCESSED_VIDEO_DIR = local_config.PREPROCESSED_VIDEO_DIR
 PREPROCESSED_AUDIO_DIR = local_config.PREPROCESSED_AUDIO_DIR
-# EMOTION_CLASSES = ['neutral', 'calm', 'happy', 'sad','angry','fearful','disgust','surprised']
 
 SAMPLE_RATE = local_config.SAMPLE_RATE
 DURATION = local_config.DURATION
@@ -95,15 +94,3 @@ class MultimodalDataGenerator(keras.utils.Sequence):
         data_x_face, data_y = self.face_gen.__getitem__(index)
         data_x_audio, data_y = self.audio_gen.__getitem__(index)
         return [data_x_face, data_x_audio], data_y
-
-
-
-# X, Y = load_facial_filenames()
-# print(len(X))
-# datagen = DataGenerator(X, Y, 8)
-# for i in range(180):
-#     # print(i)
-#     X, Y = datagen.__getitem__(i)
-#     print(X.shape)
-
-# print(datagen.__len__())
