@@ -28,8 +28,7 @@ def preprocess_audio(input_wav_path, output_dir_path):
     n_fft = int(sr * (FFT_WINDOW_SIZE/1000))
     hop_length = n_fft - int(sr * (HOP_LENGTH/1000))
 
-    S = librosa.feature.melspectrogram(data, sr = sr, n_fft = n_fft, hop_length = hop_length, 
-                                    window = signal.hamming, fmin = F_MIN, fmax = F_MAX, n_mels = N_MELS)
+    S = librosa.feature.melspectrogram(data, sr = sr, n_fft = n_fft, hop_length = hop_length, window = signal.hamming, fmin = F_MIN, fmax = F_MAX, n_mels = N_MELS)
     S_DB_static = librosa.power_to_db(S)
     S_DB_delta = librosa.feature.delta(S_DB_static)
     S_DB_delta2 = librosa.feature.delta(S_DB_delta)
