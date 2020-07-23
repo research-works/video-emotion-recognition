@@ -5,17 +5,19 @@ from PIL import Image
 import utils.audio_utils as audio_utils
 import utils.video_utils as video_utils
 import tensorflow.keras as keras
-import utils.local_config as LocalConfig
+import utils.local_config as local_config
 
-BASE_DIR = LocalConfig.DATA_DIR
-PREPROCESSED_VIDEO_DIR = 'Video_preprocessing_output'
-PREPROCESSED_AUDIO_DIR = 'Audio_preprocessing_output'
+DATA_DIR = local_config.DATA_DIR
+PREPROCESSED_VIDEO_DIR = local_config.PREPROCESSED_VIDEO_DIR
+PREPROCESSED_AUDIO_DIR = local_config.PREPROCESSED_AUDIO_DIR
 EMOTION_CLASSES = ['neutral', 'calm', 'happy', 'sad','angry','fearful','disgust','surprised']
 
-SAMPLE_RATE = 44100
-DURATION = 2.5
-OFFSET = 0.8
+SAMPLE_RATE = local_config.SAMPLE_RATE
+DURATION = local_config.DURATION
+OFFSET = local_config.OFFSET
 
+preprocess_audio_data = local_config.preprocess_audio_data
+preprocess_facial_data = local_config.preprocess_facial_data
 # OUTPUT_IMAGE_WIDTH = 299
 # OUTPUT_IMAGE_HEIGHT = 299
 # 01 = neutral, 02 = calm, 03 = happy, 04 = sad, 05 = angry, 06 = fearful, 07 = disgust, 08 = surprised
@@ -33,26 +35,9 @@ def zero_pad(x, n):
     x = np.pad(x, (before, after))
     return x
 
-def preprocess_facial_data():
-    DATASET_DIR = BASE_DIR + '/' + 'ravdess_speech_videos'
-    OUTPUT_DIR = BASE_DIR + '/' + PREPROCESSED_VIDEO_DIR
-    for actor_folder in os.listdir(DATASET_DIR):
-        print(actor_folder)
-        act_no = actor_folder.split('_')[1]
-        print(act_no)
-        for mp4file in os.listdir(DATASET_DIR + "/" + actor_folder):
-
-            if mp4file.endswith(".mp4") and mp4file.startswith('01'):
-                print(mp4file)
-
-                input_video_path = DATASET_DIR + '/' + actor_folder + '/' + mp4file
-                output_dir_path = OUTPUT_DIR + '/' + actor_folder
-                video_utils.preprocess_video(input_video_path, output_dir_path, 10)
-
-
 def load_facial_filenames():
     X, Y = [], []
-    base_path = BASE_DIR + '/' + PREPROCESSED_VIDEO_DIR
+    base_path = PREPROCESSED_VIDEO_DIR
     print(base_path)
     for actor_folder in os.listdir(base_path):
         actor_path = base_path + '/' + actor_folder + '/' + 'subtracted_frames'
@@ -72,28 +57,11 @@ def load_facial_filenames():
     Y = np.array(Y)
     return X, Y
 
-def preprocess_audio_data():
-    DATASET_DIR = BASE_DIR + '/' + 'Audio_Speech_Actors_01-24'
-    OUTPUT_DIR = BASE_DIR + '/' + PREPROCESSED_AUDIO_DIR
-    for actor_folder in os.listdir(DATASET_DIR):
-        print(actor_folder)
-        act_no = actor_folder.split('_')[1]
-        print(act_no)
-        for wavfile in os.listdir(DATASET_DIR + "/" + actor_folder):
-
-            if wavfile.endswith(".wav"):
-                print(wavfile)
-
-                input_video_path = DATASET_DIR + '/' + actor_folder + '/' + wavfile
-                output_dir_path = OUTPUT_DIR + '/' + actor_folder
-                audio_utils.preprocess_audio(input_video_path, output_dir_path)
-
-
 
 def load_audio_filenames():
-    print("hello")
+    print("hello") # Written by Diksha
     X, Y = [], []
-    base_path = BASE_DIR + '/' + PREPROCESSED_AUDIO_DIR
+    base_path = PREPROCESSED_AUDIO_DIR
     print(base_path)
     for actor_folder in os.listdir(base_path):
         actor_path = base_path + '/' + actor_folder
