@@ -3,6 +3,8 @@ import numpy as np
 import utils.local_config as local_config
 import utils.audio_utils as audio_utils
 import utils.video_utils as video_utils
+from utils.local_config import PREPROCESSED_AUDIO_DIR
+from utils.local_config import PREPROCESSED_VIDEO_DIR
 
 DATA_SAVE_DIR = local_config.DATA_SAVE_DIR
 PREPROCESSED_VIDEO_DIR_TEMP = local_config.PREPROCESSED_VIDEO_DIR_TEMP
@@ -55,7 +57,7 @@ def preprocess_ravdess_facial_data():
 
 def load_ravdess_facial_filenames():
     X, Y = [], []
-    base_path = PREPROCESSED_VIDEO_DIR_TEMP
+    base_path = PREPROCESSED_VIDEO_DIR
     print(base_path)
     for actor_folder in os.listdir(base_path):
         actor_path = base_path + '/' + actor_folder + '/' + 'subtracted_frames'
@@ -78,7 +80,7 @@ def load_ravdess_facial_filenames():
 def load_ravdess_audio_filenames():
     print("hello") # Written by Diksha
     X, Y = [], []
-    base_path = PREPROCESSED_AUDIO_DIR_TEMP
+    base_path = PREPROCESSED_AUDIO_DIR
     print(base_path)
     for actor_folder in os.listdir(base_path):
         actor_path = base_path + '/' + actor_folder
@@ -147,7 +149,7 @@ def preprocess_savee_facial_data():
 
 def load_savee_facial_filenames():
     X, Y = [], []
-    base_path = PREPROCESSED_VIDEO_DIR_TEMP
+    base_path = PREPROCESSED_VIDEO_DIR
     print(base_path)
     for actor_folder in os.listdir(base_path):
         actor_path = base_path + '/' + actor_folder + '/' + 'subtracted_frames'
@@ -170,7 +172,7 @@ def load_savee_facial_filenames():
 def load_savee_audio_filenames():
     print("hello") # Written by Diksha
     X, Y = [], []
-    base_path = PREPROCESSED_AUDIO_DIR_TEMP
+    base_path = PREPROCESSED_AUDIO_DIR
     print(base_path)
     for actor_folder in os.listdir(base_path):
         actor_path = base_path + '/' + actor_folder
