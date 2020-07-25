@@ -5,10 +5,9 @@ import utils.audio_utils as audio_utils
 import utils.video_utils as video_utils
 from utils.local_config import PREPROCESSED_AUDIO_DIR
 from utils.local_config import PREPROCESSED_VIDEO_DIR
-
-DATA_SAVE_DIR = local_config.DATA_SAVE_DIR
-PREPROCESSED_VIDEO_DIR_TEMP = local_config.PREPROCESSED_VIDEO_DIR_TEMP
-PREPROCESSED_AUDIO_DIR_TEMP = local_config.PREPROCESSED_AUDIO_DIR_TEMP
+from utils.local_config import PREPROCESSED_AUDIO_DIR_TEMP
+from utils.local_config import PREPROCESSED_VIDEO_DIR_TEMP
+from utils.local_config import DATA_SAVE_DIR
 
 def one_hot(i, n=8):
     arr = np.zeros(8)
