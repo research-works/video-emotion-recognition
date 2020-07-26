@@ -54,7 +54,7 @@ HyperparamConfigA5 = {
 }
 
 HyperparamConfigA6 = {
-    'iteration': 'A5',
+    'iteration': 'A6',
     'layer1_kernel_intializer': 'glorot_uniform',
     'layer1_kernel_regularizer': None,
     'layer1_activity_regulazier':  tf.keras.regularizers.l2(0.01),
@@ -66,8 +66,8 @@ HyperparamConfigA6 = {
     'epochs': 200
 }
 
-HyperparamConfigA6 = {
-    'iteration': 'A6',
+HyperparamConfigA7 = {
+    'iteration': 'A7',
     'layer1_kernel_intializer': 'glorot_uniform',
     'layer1_kernel_regularizer': None,
     'layer1_activity_regulazier':  tf.keras.regularizers.l2(0.05),
