@@ -112,8 +112,8 @@ class RAVDESS(Preprocess):
                 # X.append(S_input) # (216,1)
                 X.append(audio_path)
 
-                em_id = int(audio_file.split('-')[2])
-                one_hot_em = tf.one_hot(em_id - 1, len(self.EMOTION_CLASSES))
+                em_id = int(audio_file.split('-')[2]) - 1
+                one_hot_em = tf.one_hot(em_id, len(self.EMOTION_CLASSES))
                 # print(one_hot_em.shape)
                 Y.append(one_hot_em)
         X = np.array(X)
@@ -134,8 +134,8 @@ class RAVDESS(Preprocess):
                 image_path = actor_path + '/' + image_file
                 X.append(image_path)
 
-                em_id = int(image_file.split('-')[2])
-                one_hot_em = tf.one_hot(em_id - 1, len(self.EMOTION_CLASSES))
+                em_id = int(image_file.split('-')[2]) - 1
+                one_hot_em = tf.one_hot(em_id, len(self.EMOTION_CLASSES))
                 # print(one_hot_em)
                 Y.append(one_hot_em)
         X = np.array(X)
@@ -224,8 +224,8 @@ class SAVEE(Preprocess):
                 X.append(audio_path)
 
                 em_id = self.extract_em_id(audio_file)
-                one_hot_em = tf.one_hot(em_id - 1, len(self.EMOTION_CLASSES))
-                # print(one_hot_em.shape)
+                one_hot_em = tf.one_hot(em_id, len(self.EMOTION_CLASSES))
+                # print(one_hot_em)
                 Y.append(one_hot_em)
         X = np.array(X)
         Y = np.array(Y)
@@ -246,7 +246,7 @@ class SAVEE(Preprocess):
                 X.append(image_path)
 
                 em_id = self.extract_em_id(image_file)
-                one_hot_em = tf.one_hot(em_id - 1, len(self.EMOTION_CLASSES))
+                one_hot_em = tf.one_hot(em_id, len(self.EMOTION_CLASSES))
                 # print(one_hot_em)
                 Y.append(one_hot_em)
         X = np.array(X)
