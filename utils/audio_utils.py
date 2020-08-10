@@ -11,12 +11,9 @@ def resize(X, width, height):
     image = image.resize((width, height), resample = Image.BILINEAR)
     return np.array(image)
 
-def preprocess_audio(input_wav_path, output_dir_path):
+def preprocess_audio(input_wav_path, output_dir_path, sr = 441000, offset = 0.8, duration = 2):
     FFT_WINDOW_SIZE = 25 # ms
     HOP_LENGTH = 10 # ms
-    SAMPLE_RATE = 44100
-    OFFSET = 0.8
-    DURATION = 2
     F_MIN = 20
     F_MAX = 8000
     N_MELS = 64
@@ -24,7 +21,7 @@ def preprocess_audio(input_wav_path, output_dir_path):
     # RESIZED_WIDTH = 299
     # RESIZED_HEIGHT = 299
 
-    data, sr = librosa.load(input_wav_path, sr = SAMPLE_RATE, offset = OFFSET, duration = DURATION)
+    data, sr = librosa.load(input_wav_path, sr = sr, offset = offset, duration = duration)
     n_fft = int(sr * (FFT_WINDOW_SIZE/1000))
     hop_length = n_fft - int(sr * (HOP_LENGTH/1000))
 

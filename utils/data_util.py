@@ -3,19 +3,7 @@ import numpy as np
 import librosa
 from PIL import Image
 import utils.audio_utils as audio_utils
-import utils.video_utils as video_utils
 import tensorflow.keras as keras
-import utils.local_config as local_config
-from utils.preprocess_util import load_audio_filenames
-from utils.preprocess_util import load_facial_filenames
-
-DATA_DIR = local_config.DATA_DIR
-PREPROCESSED_VIDEO_DIR = local_config.PREPROCESSED_VIDEO_DIR
-PREPROCESSED_AUDIO_DIR = local_config.PREPROCESSED_AUDIO_DIR
-
-SAMPLE_RATE = local_config.SAMPLE_RATE
-DURATION = local_config.DURATION
-OFFSET = local_config.OFFSET
 
 class FaceDataGenerator(keras.utils.Sequence):
 
