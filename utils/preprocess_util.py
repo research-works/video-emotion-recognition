@@ -160,7 +160,7 @@ class RAVDESS(Preprocess):
         
 class SAVEE(Preprocess):
     EMOTION_CLASSES = ['a', 'd', 'f', 'h', 'n', 'sa', 'su']
-    DURATION = 2
+    DURATION = 3
     OFFSET = 0
     SAMPLE_RATE = 441000
 
