@@ -4,6 +4,7 @@ import utils.local_config as local_config
 import utils.audio_utils as audio_utils
 import utils.video_utils as video_utils
 import tensorflow as tf
+from sklearn.model_selection import train_test_split
 from utils.local_config import PREPROCESSED_AUDIO_DIR
 from utils.local_config import PREPROCESSED_VIDEO_DIR
 from utils.local_config import PREPROCESSED_AUDIO_DIR_TEMP
@@ -94,9 +95,10 @@ class RAVDESS(Preprocess):
                     output_dir_path = OUTPUT_DIR + '/' + actor_folder
                     video_utils.preprocess_video(input_video_path, output_dir_path, 10)
     
-    def load_audio_filenames(self):
+    def load_audio_filenames(self, random_state, test_size):
         print("hello") # Written by Diksha
-        X, Y = [], []
+        X = [[],[],[],[],[],[],[],[]]
+        Y = [[],[],[],[],[],[],[],[]]
         base_path = PREPROCESSED_AUDIO_DIR
         print(base_path)
         for actor_folder in os.listdir(base_path):
@@ -107,21 +109,28 @@ class RAVDESS(Preprocess):
             files_list.sort()
             for audio_file in files_list:
                 audio_path = actor_path + '/' + audio_file
-                # S_input = np.load(audio_path)
-                # # print(S_input.shape)
-                # X.append(S_input) # (216,1)
-                X.append(audio_path)
 
                 em_id = int(audio_file.split('-')[2]) - 1
                 one_hot_em = tf.one_hot(em_id, len(self.EMOTION_CLASSES))
                 # print(one_hot_em.shape)
-                Y.append(one_hot_em)
-        X = np.array(X)
-        Y = np.array(Y)
-        return X, Y
+                X[em_id].append(audio_path)
+                Y[em_id].append(one_hot_em)
+
+        X_train, X_test = [], []
+        Y_train, Y_test = [], []
+        for (file_list, label_list, em_id) in zip(X, Y, range(len(self.EMOTION_CLASSES))):
+            train_test_distribution = train_test_split(file_list, label_list, test_size = test_size, 
+                                        shuffle = True, random_state = random_state + em_id)
+            X_train += train_test_distribution[0]
+            X_test += train_test_distribution[1]
+            Y_train += train_test_distribution[2]
+            Y_test += train_test_distribution[3]
+        
+        return np.array(X_train), np.array(X_test), np.array(Y_train), np.array(Y_test)
     
-    def load_visual_filenames(self):
-        X, Y = [], []
+    def load_visual_filenames(self, random_state, test_size):
+        X = [[],[],[],[],[],[],[],[]]
+        Y = [[],[],[],[],[],[],[],[]]
         base_path = PREPROCESSED_VIDEO_DIR
         print(base_path)
         for actor_folder in os.listdir(base_path):
@@ -132,15 +141,24 @@ class RAVDESS(Preprocess):
             files_list.sort()
             for image_file in files_list:
                 image_path = actor_path + '/' + image_file
-                X.append(image_path)
 
                 em_id = int(image_file.split('-')[2]) - 1
                 one_hot_em = tf.one_hot(em_id, len(self.EMOTION_CLASSES))
                 # print(one_hot_em)
-                Y.append(one_hot_em)
-        X = np.array(X)
-        Y = np.array(Y)
-        return X, Y
+                X[em_id].append(image_path)
+                Y[em_id].append(one_hot_em)
+
+        X_train, X_test = [], []
+        Y_train, Y_test = [], []
+        for (file_list, label_list, em_id) in zip(X, Y, range(len(self.EMOTION_CLASSES))):
+            train_test_distribution = train_test_split(file_list, label_list, test_size = test_size, 
+                                        shuffle = True, random_state = random_state + em_id)
+            X_train += train_test_distribution[0]
+            X_test += train_test_distribution[1]
+            Y_train += train_test_distribution[2]
+            Y_test += train_test_distribution[3]
+        
+        return np.array(X_train), np.array(X_test), np.array(Y_train), np.array(Y_test)
     
     @property
     def emotion_classes(self):
@@ -205,9 +223,10 @@ class SAVEE(Preprocess):
                     output_dir_path = OUTPUT_DIR + '/' + actor_folder
                     video_utils.preprocess_video(input_video_path, output_dir_path, 10)
     
-    def load_audio_filenames(self):
+    def load_audio_filenames(self, random_state, test_size):
         print("hello") # Written by Diksha
-        X, Y = [], []
+        X = [[],[],[],[],[],[],[]]
+        Y = [[],[],[],[],[],[],[]]
         base_path = PREPROCESSED_AUDIO_DIR
         print(base_path)
         for actor_folder in os.listdir(base_path):
@@ -221,18 +240,28 @@ class SAVEE(Preprocess):
                 # S_input = np.load(audio_path)
                 # # print(S_input.shape)
                 # X.append(S_input) # (216,1)
-                X.append(audio_path)
 
                 em_id = self.extract_em_id(audio_file)
                 one_hot_em = tf.one_hot(em_id, len(self.EMOTION_CLASSES))
                 # print(one_hot_em)
-                Y.append(one_hot_em)
-        X = np.array(X)
-        Y = np.array(Y)
-        return X, Y
+                X[em_id].append(audio_path)
+                Y[em_id].append(one_hot_em)
+            
+        X_train, X_test = [], []
+        Y_train, Y_test = [], []
+        for (file_list, label_list, em_id) in zip(X, Y, range(len(self.EMOTION_CLASSES))):
+            train_test_distribution = train_test_split(file_list, label_list, test_size = test_size, 
+                                        shuffle = True, random_state = random_state + em_id)
+            X_train += train_test_distribution[0]
+            X_test += train_test_distribution[1]
+            Y_train += train_test_distribution[2]
+            Y_test += train_test_distribution[3]
+        
+        return np.array(X_train), np.array(X_test), np.array(Y_train), np.array(Y_test)
 
-    def load_visual_filenames(self):
-        X, Y = [], []
+    def load_visual_filenames(self, random_state, test_size):
+        X = [[],[],[],[],[],[],[]]
+        Y = [[],[],[],[],[],[],[]]
         base_path = PREPROCESSED_VIDEO_DIR
         print(base_path)
         for actor_folder in os.listdir(base_path):
@@ -243,15 +272,24 @@ class SAVEE(Preprocess):
             files_list.sort()
             for image_file in files_list:
                 image_path = actor_path + '/' + image_file
-                X.append(image_path)
 
                 em_id = self.extract_em_id(image_file)
                 one_hot_em = tf.one_hot(em_id, len(self.EMOTION_CLASSES))
                 # print(one_hot_em)
-                Y.append(one_hot_em)
-        X = np.array(X)
-        Y = np.array(Y)
-        return X, Y
+                X[em_id].append(image_path)
+                Y[em_id].append(one_hot_em)
+            
+        X_train, X_test = [], []
+        Y_train, Y_test = [], []
+        for (file_list, label_list, em_id) in zip(X, Y, range(len(self.EMOTION_CLASSES))):
+            train_test_distribution = train_test_split(file_list, label_list, test_size = test_size, 
+                                        shuffle = True, random_state = random_state + em_id)
+            X_train += train_test_distribution[0]
+            X_test += train_test_distribution[1]
+            Y_train += train_test_distribution[2]
+            Y_test += train_test_distribution[3]
+        
+        return np.array(X_train), np.array(X_test), np.array(Y_train), np.array(Y_test)
     
     @property
     def emotion_classes(self):
