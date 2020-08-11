@@ -5,6 +5,7 @@ import utils.audio_utils as audio_utils
 import utils.video_utils as video_utils
 import tensorflow as tf
 from sklearn.model_selection import train_test_split
+from sklearn.utils import shuffle
 from utils.local_config import PREPROCESSED_AUDIO_DIR
 from utils.local_config import PREPROCESSED_VIDEO_DIR
 from utils.local_config import PREPROCESSED_AUDIO_DIR_TEMP
@@ -126,7 +127,9 @@ class RAVDESS(Preprocess):
             Y_train += train_test_distribution[2]
             Y_test += train_test_distribution[3]
         
-        return np.array(X_train), np.array(X_test), np.array(Y_train), np.array(Y_test)
+        X_train, Y_train = shuffle(np.array(X_train), np.array(Y_train), random_state = random_state)
+        X_test, Y_test = shuffle(np.array(X_test), np.array(Y_test), random_state = random_state)
+        return X_train, X_test, Y_train, Y_test
     
     def load_visual_filenames(self, random_state, test_size):
         X = [[],[],[],[],[],[],[],[]]
@@ -158,7 +161,9 @@ class RAVDESS(Preprocess):
             Y_train += train_test_distribution[2]
             Y_test += train_test_distribution[3]
         
-        return np.array(X_train), np.array(X_test), np.array(Y_train), np.array(Y_test)
+        X_train, Y_train = shuffle(np.array(X_train), np.array(Y_train), random_state = random_state)
+        X_test, Y_test = shuffle(np.array(X_test), np.array(Y_test), random_state = random_state)
+        return X_train, X_test, Y_train, Y_test
     
     @property
     def emotion_classes(self):
@@ -257,7 +262,9 @@ class SAVEE(Preprocess):
             Y_train += train_test_distribution[2]
             Y_test += train_test_distribution[3]
         
-        return np.array(X_train), np.array(X_test), np.array(Y_train), np.array(Y_test)
+        X_train, Y_train = shuffle(np.array(X_train), np.array(Y_train), random_state = random_state)
+        X_test, Y_test = shuffle(np.array(X_test), np.array(Y_test), random_state = random_state)
+        return X_train, X_test, Y_train, Y_test
 
     def load_visual_filenames(self, random_state, test_size):
         X = [[],[],[],[],[],[],[]]
@@ -289,7 +296,9 @@ class SAVEE(Preprocess):
             Y_train += train_test_distribution[2]
             Y_test += train_test_distribution[3]
         
-        return np.array(X_train), np.array(X_test), np.array(Y_train), np.array(Y_test)
+        X_train, Y_train = shuffle(np.array(X_train), np.array(Y_train), random_state = random_state)
+        X_test, Y_test = shuffle(np.array(X_test), np.array(Y_test), random_state = random_state)
+        return X_train, X_test, Y_train, Y_test
     
     @property
     def emotion_classes(self):
