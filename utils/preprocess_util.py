@@ -58,7 +58,7 @@ class Preprocess(ABC):
 
 class RAVDESS(Preprocess):
     EMOTION_CLASSES = ['neutral', 'calm', 'happy', 'sad', 'angry', 'fearful', 'disgust', 'surprised']
-    AUDIO_DURATION = 2.5
+    DURATION = 2.5
     OFFSET = 0.8
     SAMPLE_RATE = 441000
 
@@ -76,7 +76,7 @@ class RAVDESS(Preprocess):
 
                     input_video_path = DATASET_DIR + '/' + actor_folder + '/' + wavfile
                     output_dir_path = OUTPUT_DIR + '/' + actor_folder
-                    audio_utils.preprocess_audio(input_video_path, output_dir_path)
+                    audio_utils.preprocess_audio(input_video_path, output_dir_path, self.SAMPLE_RATE, self.OFFSET, self.DURATION)
     
     def process_video(self):
         DATASET_DIR = DATA_SAVE_DIR + '/' + 'ravdess_speech_videos'
@@ -160,7 +160,7 @@ class RAVDESS(Preprocess):
         
 class SAVEE(Preprocess):
     EMOTION_CLASSES = ['a', 'd', 'f', 'h', 'n', 'sa', 'su']
-    AUDIO_DURATION = 2
+    DURATION = 3
     OFFSET = 0
     SAMPLE_RATE = 441000
 
@@ -187,7 +187,7 @@ class SAVEE(Preprocess):
 
                     input_video_path = DATASET_DIR + '/' + actor_folder + '/' + wavfile
                     output_dir_path = OUTPUT_DIR + '/' + actor_folder
-                    audio_utils.preprocess_audio(input_video_path, output_dir_path)
+                    audio_utils.preprocess_audio(input_video_path, output_dir_path, self.SAMPLE_RATE, self.OFFSET, self.DURATION)
     
     def process_video(self):
         DATASET_DIR = DATA_SAVE_DIR + '/' + 'AudioVisualClip'

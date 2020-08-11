@@ -11,7 +11,7 @@ def resize(X, width, height):
     image = image.resize((width, height), resample = Image.BILINEAR)
     return np.array(image)
 
-def preprocess_audio(input_wav_path, output_dir_path, sr = 441000, offset = 0.8, duration = 2):
+def preprocess_audio(input_wav_path, output_dir_path, sr, offset, duration):
     FFT_WINDOW_SIZE = 25 # ms
     HOP_LENGTH = 10 # ms
     F_MIN = 20
