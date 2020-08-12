@@ -1,7 +1,7 @@
 from configparser import ConfigParser, ExtendedInterpolation
 
 config = ConfigParser(interpolation=ExtendedInterpolation())
-config.read('/home/reckoner1429/Documents/projects/video-emotion-recognition/utils/config.ini')
+config.read('./utils/config.ini')
 
 global_config = config['GLOBAL']
 
