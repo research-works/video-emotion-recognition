@@ -1,16 +1,17 @@
 import os
 import numpy as np
-import utils.local_config as local_config
+import utils.config as config
 import utils.audio_utils as audio_utils
 import utils.video_utils as video_utils
 import tensorflow as tf
 from sklearn.model_selection import train_test_split
 from sklearn.utils import shuffle
-from utils.local_config import PREPROCESSED_AUDIO_DIR
-from utils.local_config import PREPROCESSED_VIDEO_DIR
-from utils.local_config import PREPROCESSED_AUDIO_DIR_TEMP
-from utils.local_config import PREPROCESSED_VIDEO_DIR_TEMP
-from utils.local_config import DATA_SAVE_DIR
+from utils.config import PREPROCESSED_AUDIO_DIR
+from utils.config import PREPROCESSED_VIDEO_DIR
+from utils.config import PREPROCESSED_AUDIO_SAVE_DIR
+from utils.config import PREPROCESSED_VIDEO_SAVE_DIR
+from utils.config import DATA_SAVE_DIR
+from utils.config import DATASET_BASE_DIR
 from abc import ABC, abstractmethod
 
 def zero_pad(x, n):
@@ -65,8 +66,8 @@ class RAVDESS(Preprocess):
     SAMPLE_RATE = 441000
 
     def process_audio(self):
-        DATASET_DIR = DATA_SAVE_DIR + '/' + 'Audio_Speech_Actors_01-24'
-        OUTPUT_DIR = PREPROCESSED_AUDIO_DIR_TEMP
+        DATASET_DIR = DATASET_BASE_DIR + '/' + 'Audio_Speech_Actors_01-24'
+        OUTPUT_DIR = PREPROCESSED_AUDIO_SAVE_DIR
         for actor_folder in os.listdir(DATASET_DIR):
             print(actor_folder)
             act_no = actor_folder.split('_')[1]
@@ -81,8 +82,8 @@ class RAVDESS(Preprocess):
                     audio_utils.preprocess_audio(input_video_path, output_dir_path, self.SAMPLE_RATE, self.OFFSET, self.DURATION)
     
     def process_video(self):
-        DATASET_DIR = DATA_SAVE_DIR + '/' + 'ravdess_speech_videos'
-        OUTPUT_DIR = PREPROCESSED_VIDEO_DIR_TEMP
+        DATASET_DIR = DATASET_BASE_DIR + '/' + 'ravdess_speech_videos'
+        OUTPUT_DIR = PREPROCESSED_VIDEO_SAVE_DIR
         for actor_folder in os.listdir(DATASET_DIR):
             print(actor_folder)
             act_no = actor_folder.split('_')[1]
@@ -197,8 +198,8 @@ class SAVEE(Preprocess):
         return self.EMOTION_CLASSES.index(emotion_class)
 
     def process_audio(self):
-        DATASET_DIR = DATA_SAVE_DIR + '/' + 'AudioData'
-        OUTPUT_DIR = PREPROCESSED_AUDIO_DIR_TEMP
+        DATASET_DIR = DATASET_BASE_DIR + '/' + 'AudioData'
+        OUTPUT_DIR = PREPROCESSED_AUDIO_SAVE_DIR
         for actor_folder in os.listdir(DATASET_DIR):
             print(actor_folder)
             act_no = actor_folder
@@ -213,8 +214,8 @@ class SAVEE(Preprocess):
                     audio_utils.preprocess_audio(input_video_path, output_dir_path, self.SAMPLE_RATE, self.OFFSET, self.DURATION)
     
     def process_video(self):
-        DATASET_DIR = DATA_SAVE_DIR + '/' + 'AudioVisualClip'
-        OUTPUT_DIR = PREPROCESSED_VIDEO_DIR_TEMP
+        DATASET_DIR = DATASET_BASE_DIR + '/' + 'AudioVisualClip'
+        OUTPUT_DIR = PREPROCESSED_VIDEO_SAVE_DIR
         for actor_folder in os.listdir(DATASET_DIR):
             print(actor_folder)
             act_no = actor_folder

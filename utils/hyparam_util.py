@@ -1,6 +1,6 @@
 import json
 import tensorflow as tf
-from utils.local_config import HYPARAM_CONFIG_FILE_PATH
+from utils.config import HYPARAM_CONFIG_FILE_PATH
 
 def get_initializer(name):
     return name

@@ -16,7 +16,7 @@ import cv2
 from tensorflow.keras.preprocessing import image
 import numpy as np
 import matplotlib.pyplot as plt
-import utils.local_config as local_config
+import utils.config as config
 
 def extract_frames(cam, output_dir, frame_rate):
     currentframe = 0
@@ -126,7 +126,7 @@ def rotate_image(frames_dir_path, output_dir_path):
     # initialize dlib's face detector (HOG-based) and then create
     # the facial landmark predictor and the face aligner
     detector = dlib.get_frontal_face_detector()
-    predictor = dlib.shape_predictor(os.path.join(local_config.BASE_DIR, 'resources/shape_predictor_5_face_landmarks.dat'))
+    predictor = dlib.shape_predictor(os.path.join(config.BASE_DIR, 'resources/shape_predictor_5_face_landmarks.dat'))
     fa = FaceAligner(predictor, desiredFaceWidth=256)
     print(frames_dir_path)
     for filename in os.listdir(frames_dir_path):
