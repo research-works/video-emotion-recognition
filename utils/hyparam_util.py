@@ -20,8 +20,9 @@ def get_dropout_layer(rate):
 def get_activation(name):
     return name
 
-def get_optimizer(name):
-    return name
+def get_optimizer(name, learning_rate):
+    if name == 'rmsprop':
+        return tf.keras.optimizers.RMSprop(learning_rate)
     
 def load_fusion_hyparam(iteration, layer=None):
     with open(HYPARAM_CONFIG_FILE_PATH) as config_file:
