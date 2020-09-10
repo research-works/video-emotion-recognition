@@ -22,4 +22,4 @@ PREPROCESSED_AUDIO_DIR = dataset_config['preprocessed_audio_dir']
 
 DATA_SAVE_DIR = dataset_config['data_save_dir']
 PREPROCESSED_VIDEO_SAVE_DIR = dataset_config['preprocessed_video_save_dir']
-PREPROCESSED_AUDIO_SAVE_DIR = dataset_config['preprocessed_audio_save_dir']
+PREPROCESSED_AUDIO_SAVE_DIR = dataset_config['preprocessed_video_save_dir']

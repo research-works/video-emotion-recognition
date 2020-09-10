@@ -12,7 +12,7 @@ from imutils.face_utils.helpers import FACIAL_LANDMARKS_68_IDXS
 from imutils.face_utils.helpers import FACIAL_LANDMARKS_5_IDXS
 from imutils.face_utils.helpers import shape_to_np
 import numpy as np
-# import cv2
+import cv2
 from tensorflow.keras.preprocessing import image
 import numpy as np
 import matplotlib.pyplot as plt
@@ -29,17 +29,21 @@ def extract_frames(cam, output_dir, frame_rate):
             # if video is still left continue creating images
             if (currentframe % frame_rate) == 0:
                 name = output_dir+ '/frame' + str(currentframe) + '.jpg'
+                #print ('Creating...' + name) 
                 
                 # writing the extracted images 
                 print(frame.shape)
                 cv2.imwrite(name, frame)
                 count = count +1 
 
+                # increasing counter so that it will 
+                # show how many frames are created 
             currentframe += 1
         else:
             print("oof") 
             break
     return frame_rate, count
+
 
 class FaceAligner:
 	def __init__(self, predictor, desiredLeftEye=(0.20, 0.30),
@@ -61,6 +65,7 @@ class FaceAligner:
 		shape = self.predictor(gray, rect)
 		shape = shape_to_np(shape)
 		
+		#simple hack ;)
 		if (len(shape)==68):
 			# extract the left and right eye (x, y)-coordinates
 			(lStart, lEnd) = FACIAL_LANDMARKS_68_IDXS["left_eye"]
@@ -118,6 +123,8 @@ class FaceAligner:
 
 def rotate_image(frames_dir_path, output_dir_path):
  
+    # initialize dlib's face detector (HOG-based) and then create
+    # the facial landmark predictor and the face aligner
     detector = dlib.get_frontal_face_detector()
     predictor = dlib.shape_predictor(os.path.join(config.BASE_DIR, 'resources/shape_predictor_5_face_landmarks.dat'))
     fa = FaceAligner(predictor, desiredFaceWidth=256)
@@ -130,6 +137,13 @@ def rotate_image(frames_dir_path, output_dir_path):
             #test_image = image.load_img("./data/"+filename)
             image = imutils.resize(image, width=800)
             gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
+            # show the original input image and detect faces in the grayscale
+            # image
+            #cv2_imshow(image)
+            # print("Input Image")
+            # #plt.gray()
+            # plt.imshow(image)
+            # plt.show()
 
             rects = detector(gray, 2)
             # loop over the face detections
@@ -140,10 +154,20 @@ def rotate_image(frames_dir_path, output_dir_path):
                 faceOrig = imutils.resize(image[y:y + h, x:x + w], width=256)
                 faceAligned = fa.align(image, gray, rect)
 
+                # print("Original Image: " + filename)
+                # cv2_imshow(faceOrig)
+                    
+                # print("Aligned Image")
+                # cv2_imshow(faceAligned)
+
                 name = output_dir_path + '/' + filename
                 print(name)
                 print("size: "+str(faceAligned.size))
                 cv2.imwrite(name, faceAligned)
+
+                
+                #break
+
 
 
 def sub(frames_dir_path, intermediate_dir_path, output_dir_path, frame_rate):
