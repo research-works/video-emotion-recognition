@@ -15,3 +15,4 @@ utils/local_config.py
 .ipynb_checkpoints/**
 **/fusion_training_hyparam.json
 **/config.ini
+**/.vscode/**
