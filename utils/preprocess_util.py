@@ -334,7 +334,7 @@ class RML(Preprocess):
         return self.EMOTION_CLASSES.index(emotion_class)
 
     def process_audio(self):
-        DATASET_DIR = DATASET_BASE_DIR + '/' + 'AudioData'
+        DATASET_DIR = os.path.join(DATASET_BASE_DIR, 'AudioData')
         print("dataset",DATASET_DIR)
         OUTPUT_DIR = PREPROCESSED_AUDIO_SAVE_DIR
         print("output file for audio", PREPROCESSED_AUDIO_SAVE_DIR)
@@ -343,31 +343,31 @@ class RML(Preprocess):
             print(actor_folder)
             act_no = actor_folder
             print(act_no)
-            for wavfile in os.listdir(DATASET_DIR + "/" + actor_folder):
+            for lang in os.listdir(os.path.join(DATASET_DIR, actor_folder)):
+                for wavfile in os.listdir(os.path.join(DATASET_DIR, actor_folder, lang)):
+                    if wavfile.endswith(".wav"):
+                        print(wavfile)
 
-                if wavfile.endswith(".wav"):
-                    print(wavfile)
-
-                    input_video_path = DATASET_DIR + '/' + actor_folder + '/' + wavfile
-                    output_dir_path = OUTPUT_DIR + '/' + actor_folder
-                    audio_utils.preprocess_audio(input_video_path, output_dir_path, self.SAMPLE_RATE, self.OFFSET, self.DURATION)
+                        input_video_path = os.path.join(DATASET_DIR, actor_folder, lang, wavfile)
+                        output_dir_path = os.path.join(OUTPUT_DIR, lang, actor_folder)
+                        audio_utils.preprocess_audio(input_video_path, output_dir_path, self.SAMPLE_RATE, self.OFFSET, self.DURATION)
 
     def process_video(self):
         print(DATASET_BASE_DIR)
-        DATASET_DIR = DATASET_BASE_DIR + '/' + 'Videos'
+        DATASET_DIR = os.path.join(DATASET_BASE_DIR, 'VideoData')
         OUTPUT_DIR = PREPROCESSED_VIDEO_SAVE_DIR
         for actor_folder in os.listdir(DATASET_DIR):
             print(actor_folder)
             act_no = actor_folder
             print(act_no)
-            for avifile in os.listdir(DATASET_DIR + "/" + actor_folder+ "/f1eng"):
+            for lang in os.listdir(os.path.join(DATASET_DIR, actor_folder)):
+                for avifile in os.listdir(os.path.join(DATASET_DIR, actor_folder, lang)):
+                    if avifile.endswith(".avi"):
+                        print(avifile)
 
-                if avifile.endswith(".avi"):
-                    print(avifile)
-
-                    input_video_path = DATASET_DIR + '/' + actor_folder + '/f1eng/' + avifile
-                    output_dir_path = OUTPUT_DIR + '/' + actor_folder
-                    video_utils.preprocess_video(input_video_path, output_dir_path, 10)
+                        input_video_path = os.path.join(DATASET_DIR, actor_folder, lang, avifile)
+                        output_dir_path = os.path.join(OUTPUT_DIR, actor_folder, lang)
+                        video_utils.preprocess_video(input_video_path, output_dir_path, 10)
 
     def load_audio_filenames(self, random_state, test_size):
         print("hello")
@@ -376,22 +376,24 @@ class RML(Preprocess):
         base_path = PREPROCESSED_AUDIO_DIR
         print(base_path)
         for actor_folder in os.listdir(base_path):
-            actor_path = base_path + '/' + actor_folder
-            files_list = []
-            for audio_file in os.listdir(actor_path):
-                files_list.append(audio_file)
-            files_list.sort()
-            for audio_file in files_list:
-                audio_path = actor_path + '/' + audio_file
-                # S_input = np.load(audio_path)
-                # # print(S_input.shape)
-                # X.append(S_input) # (216,1)
+            actor_path = os.path.join(base_path, actor_folder)
+            for lang in os.listdir(os.path.join(actor_path)):
+                actor_lang_path = os.path.join(actor_path, lang)
+                files_list = []
+                for audio_file in os.listdir(actor_lang_path):
+                    files_list.append(audio_file)
+                files_list.sort()
+                for audio_file in files_list:
+                    audio_path = os.path.join(actor_lang_path, audio_file)
+                    # S_input = np.load(audio_path)
+                    # # print(S_input.shape)
+                    # X.append(S_input) # (216,1)
 
-                em_id = self.extract_em_id(audio_file)
-                one_hot_em = tf.one_hot(em_id, len(self.EMOTION_CLASSES))
-                # print(one_hot_em)
-                X[em_id].append(audio_path)
-                Y[em_id].append(one_hot_em)
+                    em_id = self.extract_em_id(audio_file)
+                    one_hot_em = tf.one_hot(em_id, len(self.EMOTION_CLASSES))
+                    # print(one_hot_em)
+                    X[em_id].append(audio_path)
+                    Y[em_id].append(one_hot_em)
             
         X_train, X_test = [], []
         Y_train, Y_test = [], []
@@ -413,19 +415,21 @@ class RML(Preprocess):
         base_path = PREPROCESSED_VIDEO_DIR
         print(base_path)
         for actor_folder in os.listdir(base_path):
-            actor_path = base_path + '/' + actor_folder + '/' + 'subtracted_frames'
-            files_list = []
-            for image_file in os.listdir(actor_path):
-                files_list.append(image_file)
-            files_list.sort()
-            for image_file in files_list:
-                image_path = actor_path + '/' + image_file
+            actor_path = os.path.join(base_path, actor_folder)
+            for lang in os.listdir(actor_path):
+                actor_lang_path = os.path.join(actor_path, lang, 'subtracted_frames')
+                files_list = []
+                for image_file in os.listdir(actor_lang_path):
+                    files_list.append(image_file)
+                files_list.sort()
+                for image_file in files_list:
+                    image_path = os.path.join(actor_lang_path, image_file)
 
-                em_id = self.extract_em_id(image_file)
-                one_hot_em = tf.one_hot(em_id, len(self.EMOTION_CLASSES))
-                # print(one_hot_em)
-                X[em_id].append(image_path)
-                Y[em_id].append(one_hot_em)
+                    em_id = self.extract_em_id(image_file)
+                    one_hot_em = tf.one_hot(em_id, len(self.EMOTION_CLASSES))
+                    # print(one_hot_em)
+                    X[em_id].append(image_path)
+                    Y[em_id].append(one_hot_em)
             
         X_train, X_test = [], []
         Y_train, Y_test = [], []
