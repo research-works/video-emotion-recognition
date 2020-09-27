@@ -99,8 +99,11 @@ class RAVDESS(Preprocess):
     
     def load_audio_filenames(self, random_state, test_size):
         print("hello") # Written by Diksha
-        X = [[],[],[],[],[],[],[],[]]
-        Y = [[],[],[],[],[],[],[],[]]
+        X = []
+        Y = []
+        for i in range(len(self.EMOTION_CLASSES)):
+            X.append([])
+            Y.append([])
         base_path = PREPROCESSED_AUDIO_DIR
         print(base_path)
         for actor_folder in os.listdir(base_path):
@@ -133,8 +136,11 @@ class RAVDESS(Preprocess):
         return X_train, X_test, Y_train, Y_test
     
     def load_visual_filenames(self, random_state, test_size):
-        X = [[],[],[],[],[],[],[],[]]
-        Y = [[],[],[],[],[],[],[],[]]
+        X = []
+        Y = []
+        for i in range(len(self.EMOTION_CLASSES)):
+            X.append([])
+            Y.append([])
         base_path = PREPROCESSED_VIDEO_DIR
         print(base_path)
         for actor_folder in os.listdir(base_path):
@@ -231,8 +237,11 @@ class SAVEE(Preprocess):
     
     def load_audio_filenames(self, random_state, test_size):
         print("hello") # Written by Diksha
-        X = [[],[],[],[],[],[],[]]
-        Y = [[],[],[],[],[],[],[]]
+        X = []
+        Y = []
+        for i in range(len(self.EMOTION_CLASSES)):
+            X.append([])
+            Y.append([])
         base_path = PREPROCESSED_AUDIO_DIR
         print(base_path)
         for actor_folder in os.listdir(base_path):
@@ -268,8 +277,11 @@ class SAVEE(Preprocess):
         return X_train, X_test, Y_train, Y_test
 
     def load_visual_filenames(self, random_state, test_size):
-        X = [[],[],[],[],[],[],[]]
-        Y = [[],[],[],[],[],[],[]]
+        X = []
+        Y = []
+        for i in range(len(self.EMOTION_CLASSES)):
+            X.append([])
+            Y.append([])
         base_path = PREPROCESSED_VIDEO_DIR
         print(base_path)
         for actor_folder in os.listdir(base_path):
@@ -321,7 +333,7 @@ class SAVEE(Preprocess):
 class RML(Preprocess):
     EMOTION_CLASSES = ['an', 'di', 'fe', 'ha', 'sa', 'su']
     DURATION = 4
-    OFFSET = 0.5
+    OFFSET = 0
     SAMPLE_RATE = 22050
 
     def extract_em_id(self, filename):
@@ -349,7 +361,7 @@ class RML(Preprocess):
                         print(wavfile)
 
                         input_video_path = os.path.join(DATASET_DIR, actor_folder, lang, wavfile)
-                        output_dir_path = os.path.join(OUTPUT_DIR, lang, actor_folder)
+                        output_dir_path = os.path.join(OUTPUT_DIR, actor_folder, lang)
                         audio_utils.preprocess_audio(input_video_path, output_dir_path, self.SAMPLE_RATE, self.OFFSET, self.DURATION)
 
     def process_video(self):
@@ -371,8 +383,11 @@ class RML(Preprocess):
 
     def load_audio_filenames(self, random_state, test_size):
         print("hello")
-        X = [[],[],[],[],[],[],[]]
-        Y = [[],[],[],[],[],[],[]]
+        X = []
+        Y = []
+        for i in range(len(self.EMOTION_CLASSES)):
+            X.append([])
+            Y.append([])
         base_path = PREPROCESSED_AUDIO_DIR
         print(base_path)
         for actor_folder in os.listdir(base_path):
@@ -410,8 +425,11 @@ class RML(Preprocess):
         return X_train, X_test, Y_train, Y_test
 
     def load_visual_filenames(self, random_state, test_size):
-        X = [[],[],[],[],[],[],[]]
-        Y = [[],[],[],[],[],[],[]]
+        X = []
+        Y = []
+        for i in range(len(self.EMOTION_CLASSES)):
+            X.append([])
+            Y.append([])
         base_path = PREPROCESSED_VIDEO_DIR
         print(base_path)
         for actor_folder in os.listdir(base_path):
