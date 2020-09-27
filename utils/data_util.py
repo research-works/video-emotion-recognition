@@ -15,7 +15,7 @@ class FaceDataGenerator(keras.utils.Sequence):
         self.image_height = image_height
 
     def __len__(self):
-        return np.ceil(len(self.file_names) /float(self.batch_size)).astype(np.int)
+        return np.ceil(len(self.file_names) / float(self.batch_size)).astype(np.int)
 
 
     def __getitem__(self, index):
@@ -42,7 +42,7 @@ class AudioDataGenerator(keras.utils.Sequence):
         self.image_height = image_height
 
     def __len__(self):
-        return np.ceil(len(self.file_names) /float(self.batch_size)).astype(np.int)
+        return np.ceil(len(self.file_names) / float(self.batch_size)).astype(np.int)
 
 
     def __getitem__(self, index):
@@ -55,9 +55,15 @@ class AudioDataGenerator(keras.utils.Sequence):
             spect_delta = spect[:,:,1]
             spect_delta2 = spect[:,:,2]
 
-            spect_static = audio_utils.resize(spect_static, self.image_width, self.image_height)
-            spect_delta = audio_utils.resize(spect_delta, self.image_width, self.image_height)
-            spect_delta2 = audio_utils.resize(spect_delta2, self.image_width, self.image_height)
+            spect_static = audio_utils.resize(spect_static, 
+                                            self.image_width, 
+                                            self.image_height)
+            spect_delta = audio_utils.resize(spect_delta, 
+                                            self.image_width, 
+                                            self.image_height)
+            spect_delta2 = audio_utils.resize(spect_delta2, 
+                                            self.image_width, 
+                                            self.image_height)
 
             spect = np.zeros((self.image_width, self.image_height, 3))
             spect[:,:,0] = spect_static
@@ -72,8 +78,16 @@ class AudioDataGenerator(keras.utils.Sequence):
 
 class MultimodalDataGenerator(keras.utils.Sequence):
     def __init__(self, file_names_face, file_names_audio, labels, batch_size, image_width, image_height):
-        self.face_gen = FaceDataGenerator(file_names_face, labels, batch_size, image_width, image_height)
-        self.audio_gen = AudioDataGenerator(file_names_audio, labels, batch_size, image_width, image_height)
+        self.face_gen = FaceDataGenerator(file_names_face, 
+                                            labels, 
+                                            batch_size, 
+                                            image_width, 
+                                            image_height)
+        self.audio_gen = AudioDataGenerator(file_names_audio, 
+                                                labels, 
+                                                batch_size, 
+                                                image_width, 
+                                                image_height)
 
     def __len__(self):
         return self.face_gen.__len__()
