@@ -55,6 +55,7 @@ class Preprocess(ABC):
 
 class RAVDESS(Preprocess):
     EMOTION_CLASSES = ['neutral', 'calm', 'happy', 'sad', 'angry', 'fearful', 'disgust', 'surprised']
+    EMOTION_LABELS = ['neutral', 'calm', 'happy', 'sad', 'angry', 'fearful', 'disgust', 'surprised']
     DURATION = 2.5
     OFFSET = 0.8
     SAMPLE_RATE = 441000
@@ -193,6 +194,7 @@ class RAVDESS(Preprocess):
         
 class SAVEE(Preprocess):
     EMOTION_CLASSES = ['a', 'd', 'f', 'h', 'n', 'sa', 'su']
+    EMOTION_LABELS = ['angry', 'disgust', 'fearful', 'happy', 'neutral', 'sad', 'surprised']
     DURATION = 3
     OFFSET = 0
     SAMPLE_RATE = 441000
@@ -344,6 +346,7 @@ class SAVEE(Preprocess):
 
 class RML(Preprocess):
     EMOTION_CLASSES = ['an', 'di', 'fe', 'ha', 'sa', 'su']
+    EMOTION_LABELS = ['angry', 'disgust', 'fearful', 'happy', 'sad', 'surprised']
     DURATION = 4
     OFFSET = 0
     SAMPLE_RATE = 22050
