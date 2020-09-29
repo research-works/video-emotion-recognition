@@ -189,17 +189,19 @@ def sub(frames_dir_path, intermediate_dir_path, output_dir_path, frame_rate):
         #print("n: ",n)
         j = 0
         for i in range (0, (n*jump)-jump, jump):
-            re_img0 = np.int32(cv2.imread(frames_dir_path + '/frame' + str(i) + '.jpg',1))
-            print("i: "+str(i)+" aux: "+str(i+jump))
-            #print("d: ",i+j)
             aux = int(i + jump)
-            #print('aux: ',aux )
-            #issue: with adding i & j; code works when either i or j are there instead of aux(sum of i+j)
-            re_img1 = np.int32(cv2.imread(frames_dir_path + '/frame' + str(aux) + '.jpg',1))
-            sub = re_img0 - re_img1
-            sub = np.absolute(sub)
+            img0 = cv2.imread(frames_dir_path + '/frame' + str(i) + '.jpg',1)
+            img1 = cv2.imread(frames_dir_path + '/frame' + str(aux) + '.jpg',1)
 
-            cv2.imwrite(intermediate_dir_path + '/frame' + str(j)+'.jpg', sub)
+            print("i : " + str(i) + " aux : "+str(aux))
+            if(not(img0 is None) and not(img1 is None)):
+                re_img0 = np.int32(img0)
+                re_img1 = np.int32(img1)
+
+                sub = re_img0 - re_img1
+                sub = np.absolute(sub)
+
+                cv2.imwrite(intermediate_dir_path + '/frame' + str(j)+'.jpg', sub)
             j = j + jump
             print("inner")
         print("outer")
