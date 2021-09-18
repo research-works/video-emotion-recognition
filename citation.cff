@@ -1,0 +1,31 @@
+cff-version: 1.2.0
+message: "If you use this software, please cite it as below."
+authors:
+- family-names: "Mehta"
+  given-names: "Diksha"
+- family-names: "Joshi"
+  given-names: "Janhvi"
+- family-names: "Bisht"
+  given-names: "Abhishek"
+- family-names: "Badoni"
+  given-names: "Pankaj"
+title: "Pre-trained CNN models as feature extractors for Video Emotion Recognition"
+version: 1.0.0
+date-released: 2021-9-18
+url: "https://github.com/research-works/video-emotion-recognition"
+preferred-citation:
+  type: article
+  authors:
+  - family-names: "Mehta"
+    given-names: "Diksha"
+  - family-names: "Joshi"
+    given-names: "Janhvi"
+  - family-names: "Bisht"
+    given-names: "Abhishek"
+  - family-names: "Badoni"
+    given-names: "Pankaj"
+  conference: "International Conference on Intelligent Systems & Sustainable Computing ( ICISSC -2021)"
+  start: 1 # First page number
+  end: 14 # Last page number
+  title: "Efficiency analysis of Pre-trained CNN models as feature extractors for Video Emotion Recognition"
+  year: 2021
