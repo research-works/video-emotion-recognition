@@ -1,37 +1,30 @@
-## Welcome to GitHub Pages
+## Pre-trained CNN models as feature extractors for Video Emotion Recognition
 
-You can use the [editor on GitHub](https://github.com/research-works/video-emotion-recognition/edit/gh-pages/index.md) to maintain and preview the content for your website in Markdown files.
+**What this is about ?**
 
-Whenever you commit to this repository, GitHub Pages will run [Jekyll](https://jekyllrb.com/) to rebuild the pages in your site, from the content in your Markdown files.
+This repository contains the work related to the research paper titled *Efficiency analysis of Pre-trained CNN models as feature extractors for Video Emotion Recognition*.
 
-### Markdown
+Following are the names of Authors:
+- *Diksha Mehta*
+- *Janhvi Joshi*
+- *Abhishek Bisht* 
+- *Pankaj Badoni*
 
-Markdown is a lightweight and easy-to-use syntax for styling your writing. It includes conventions for
+Appropriate citations can be downloaded from the github page of this repository or alternatively from `citations.cff`.
 
-```markdown
-Syntax highlighted code block
+**How to use this work ?**
 
-# Header 1
-## Header 2
-### Header 3
+- Two configuration files `config.ini` and `fusion_training_hyparam.json` are required under the `utils` directory for this 
+project to run. The details of these files can be inferred from source code itself or by can be requested by sending a mail at `abhishekbisht@gmail.com`.
+- `config.ini` is needed to provide the directory paths such as those of datasets.
+- `fusion_training_hyparam.json` is needed to supply the aprropriate hyperparameters for training.
 
-- Bulleted
-- List
+**Acknowledgements**
 
-1. Numbered
-2. List
-
-**Bold** and _Italic_ and `Code` text
-
-[Link](url) and ![Image](src)
-```
-
-For more details see [GitHub Flavored Markdown](https://guides.github.com/features/mastering-markdown/).
-
-### Jekyll Themes
-
-Your Pages site will use the layout and styles from the Jekyll theme you have selected in your [repository settings](https://github.com/research-works/video-emotion-recognition/settings/pages). The name of this theme is saved in the Jekyll `_config.yml` configuration file.
-
-### Support or Contact
-
-Having trouble with Pages? Check out our [documentation](https://docs.github.com/categories/github-pages-basics/) or [contact support](https://support.github.com/contact) and we’ll help you sort it out.
+This work uses the following external resources.
+- `haarcascade_frontalface_alt2.xml` taken from [opencv](https://github.com/davisking/dlib-models/blob/master/shape_predictor_5_face_landmarks.dat.bz2).
+- `shape_predictor_5_face_landmarks.dat` taken from the repository [ageitgey/face_recognition_models](https://github.com/ageitgey/face_recognition_models/blob/master/face_recognition_models/models/shape_predictor_5_face_landmarks.dat) by [Adam Geitgey](https://github.com/ageitgey).
+- Datasets
+    - [SAVEE](http://kahlan.eps.surrey.ac.uk/savee/)
+    - [RAVDESS](https://zenodo.org/record/1188976#.YUYLUXUzaV5)
+- Several research papers were also referred and the authors have been appropriately credited in the research paper associated with this work.
