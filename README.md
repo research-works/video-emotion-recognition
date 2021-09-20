@@ -1,4 +1,6 @@
-**Pre-trained CNN models as feature extractors for Video Emotion Recognition**
+## Pre-trained CNN models as feature extractors for Video Emotion Recognition
+
+**What this is about ?**
 
 This repository contains the work related to the research paper titled *Efficiency analysis of Pre-trained CNN models as feature extractors for Video Emotion Recognition*.
 
