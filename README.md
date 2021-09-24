@@ -22,7 +22,7 @@ project to run. The details of these files can be inferred from source code itse
 **Acknowledgements**
 
 This work uses the following external resources.
-- `haarcascade_frontalface_alt2.xml` taken from [opencv](https://github.com/davisking/dlib-models/blob/master/shape_predictor_5_face_landmarks.dat.bz2).
+- `haarcascade_frontalface_alt2.xml` taken from [opencv](https://github.com/opencv/opencv/blob/master/data/haarcascades/haarcascade_frontalface_alt2.xml).
 - `shape_predictor_5_face_landmarks.dat` taken from the repository [ageitgey/face_recognition_models](https://github.com/ageitgey/face_recognition_models/blob/master/face_recognition_models/models/shape_predictor_5_face_landmarks.dat) by [Adam Geitgey](https://github.com/ageitgey).
 - Datasets
     - [SAVEE](http://kahlan.eps.surrey.ac.uk/savee/)
